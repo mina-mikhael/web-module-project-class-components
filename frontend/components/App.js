@@ -75,12 +75,8 @@ export default class App extends React.Component {
 
   clearCompleted = () => {
     this.setState({
-      todosList: this.state.todosList.map((item) => {
-        if (!item.completed) {
-          return item;
-        } else {
-          return this.state.todosList;
-        }
+      todosList: this.state.todosList.filter((item) => {
+        return !item.completed;
       }),
     });
   };
