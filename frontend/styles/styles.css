@@ -78,6 +78,7 @@ ul, form {
 
 .todo {
   padding: 0.15rem;
+  margin: 0.3rem 0;
 }
 
 .todo:hover {
