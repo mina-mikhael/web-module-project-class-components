@@ -1,13 +1,16 @@
 import React from 'react'
 
 export default class Todo extends React.Component {
+  clickHandler = (idx) => {
+    this.props.handleClick(idx);
+  };
+
   render() {
     return (
       <div className="todo">
         <p
           onClick={() => {
-            this.props.clickHandler(this.props.todo.id);
-            console.log(event);
+            this.clickHandler(this.props.todo.id);
           }}>
           {this.props.todo.name}{" "}
           {this.props.todo.completed ? String.fromCharCode(0x2713) : ""}

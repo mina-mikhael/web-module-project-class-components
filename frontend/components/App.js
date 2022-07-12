@@ -3,7 +3,6 @@ import TodoList from "./TodoList";
 import Form from "./Form";
 let uId = 0;
 const CreateId = () => ++uId;
-
 export default class App extends React.Component {
   constructor() {
     super();
@@ -11,6 +10,21 @@ export default class App extends React.Component {
       todosList: [
         {
           name: "finish Module project for today",
+          id: CreateId(),
+          completed: false,
+        },
+        {
+          name: "watch tutorials",
+          id: CreateId(),
+          completed: false,
+        },
+        {
+          name: "Study",
+          id: CreateId(),
+          completed: false,
+        },
+        {
+          name: "make Coffee",
           id: CreateId(),
           completed: false,
         },
@@ -44,8 +58,7 @@ export default class App extends React.Component {
     this.setState({ todo: "" });
   };
 
-  clickHandler = (itemID) => {
-    console.log("I was clicked", itemID);
+  handleClick = (itemID) => {
     this.setState({
       todosList: this.state.todosList.map((item) => {
         if (itemID === item.id) {
@@ -53,24 +66,35 @@ export default class App extends React.Component {
             ...item,
             completed: !item.completed,
           };
+        } else {
+          return { ...item };
         }
       }),
     });
   };
 
-  event;
+  clearCompleted = () => {
+    this.setState({
+      todosList: this.state.todosList.map((item) => {
+        if (!item.completed) {
+          return item;
+        } else {
+          return this.state.todosList;
+        }
+      }),
+    });
+  };
+
   render() {
     return (
       <div>
-        <TodoList
-          todos={this.state.todosList}
-          clickHandler={this.clickHandler}
-        />
+        <TodoList todos={this.state.todosList} handleClick={this.handleClick} />
         <Form
           submitHandler={this.submitHandler}
           change={this.changeHandler}
           value={this.state.todo}
         />
+        <button onClick={() => this.clearCompleted()}>Delete completed</button>
       </div>
     );
   }
